@@ -42,3 +42,5 @@ class NumberQuestion(BaseQuestion):
     max_value = models.FloatField(_("Maximum Value"))
     
     
+class SingleSelectQuestion(BaseQuestion):
+    pass
