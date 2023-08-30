@@ -31,3 +31,7 @@ class BaseQuestion(models.Model):
 
     class Meta:
         abstract = True
+        
+        
+class TextQuestion(BaseQuestion):
+    input_length = models.PositiveIntegerField(_("Text Input Length"))
