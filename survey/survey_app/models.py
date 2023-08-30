@@ -35,3 +35,10 @@ class BaseQuestion(models.Model):
         
 class TextQuestion(BaseQuestion):
     input_length = models.PositiveIntegerField(_("Text Input Length"))
+    
+    
+class NumberQuestion(BaseQuestion):
+    min_value = models.FloatField(_("Minimum Value"))
+    max_value = models.FloatField(_("Maximum Value"))
+    
+    
