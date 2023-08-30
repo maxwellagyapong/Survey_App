@@ -1,0 +1,42 @@
+{% extends 'survey/base.html' %}
+
+{% block title %}Survey List{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col mt-4">
+            <span class="float-end">
+                <a href="{% url 'survey_create' %}" class="btn btn-info">Create Survey</a>
+            </span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Survey Title</th>
+                        <th scope="col">Date/Time Created</th>
+                        <th scope="col">Date/Time Updated</th>
+                        <th scope="col">Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in survey_list %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{row.name}}</td>
+                        <td>{{row.dt_created}}</td>
+                        <td>{{row.dt_update}}</td>
+                        <td><a href="{% url 'survey_detail' row.slug %}">View Survay</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
