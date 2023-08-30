@@ -21,7 +21,7 @@ class SurveyDetailView(generic.DeleteView):
         
         if slug == None:
             messages.error(self.request, _(
-            "The survey you trying to access does not exist."))
+            "The survey you are trying to access does not exist."))
             return redirect("survey_list")
             
         return Survey.objects.get(slug=slug)
