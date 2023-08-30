@@ -24,6 +24,14 @@ class SurveyQuestion(models.Model):
     question_id = models.PositiveIntegerField(_("Question ID"))
     question = GenericForeignKey("question_content_type", "question_id")
     
+    def add_question(self, question):
+        question_content_type = ContentType.objects.get_for_model(question)
+        return SurveyQuestion.objects.create(
+            survey=self,
+            question_content_type=question_content_type,
+            question_id=question.pk
+        )
+    
     
 class BaseQuestion(models.Model):
     label = models.CharField(_("Label"), max_length=255)
