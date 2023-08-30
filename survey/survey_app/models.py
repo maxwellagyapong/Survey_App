@@ -25,3 +25,9 @@ class SurveyQuestion(models.Model):
     question = GenericForeignKey("question_content_type", "question_id")
     
     
+class BaseQuestion(models.Model):
+    label = models.CharField(_("Label"), max_length=255)
+    is_required = models.BooleanField(_("Is Required?"))
+
+    class Meta:
+        abstract = True
