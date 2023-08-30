@@ -52,6 +52,10 @@ class SingleSelectOptions(models.Model):
                         on_delete=models.CASCADE, related_name="options")
     value = models.CharField(_("Value"), max_length=50)
     
+
+class ImageQuestion(BaseQuestion):
+    pass
+    
     
 class SurveySubmission(models.Model):
     survey = models.ForeignKey(Survey, verbose_name=_("Survey"), 
