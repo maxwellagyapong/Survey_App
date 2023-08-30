@@ -22,6 +22,10 @@ class Survey(models.Model):
             question_id=question.pk
         )
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        return super(Survey, self).save(*args, **kwargs)
+    
 
 class SurveyQuestion(models.Model):
     survey = models.ForeignKey(Survey, verbose_name=_("Survey"), 
