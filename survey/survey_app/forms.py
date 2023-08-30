@@ -22,3 +22,10 @@ class NumberQuestionForm(forms.ModelForm):
     class Meta:
         model = NumberQuestion
         fields = ("label", "is_required", "min_value", "max_value")
+        
+        
+class SingleSelectQuestionForm(forms.ModelForm):
+
+    class Meta:
+        model = SingleSelectQuestion
+        fields = ("label", "is_required",)
