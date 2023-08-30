@@ -50,5 +50,11 @@ class SingleSelectOptions(models.Model):
     select_question = models.ForeignKey(SingleSelectQuestion,
                         verbose_name=_("Single Select Question"),
                         on_delete=models.CASCADE, related_name="options")
-
     value = models.CharField(_("Value"), max_length=50)
+    
+    
+class SurveySubmission(models.Model):
+    survey = models.ForeignKey(Survey, verbose_name=_("Survey"), 
+                               on_delete=models.CASCADE, related_name="submissions")
+    response = models.JSONField(_("Response"))
+    dt_submission = models.DateTimeField(_("Date/Time Submission"), auto_now_add=True)
