@@ -1,3 +1,5 @@
+from typing import Any
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.utils.translation import gettext as _
@@ -25,4 +27,22 @@ class SurveyDetailView(generic.DeleteView):
             return redirect("survey_list")
             
         return Survey.objects.get(slug=slug)
+    
+    
+class SurveyCreateView(generic.CreateView):
+    template_name = ""
+    
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+        survey_form = SurveyForm(request.POST or None)
+        
+        if survey_form.is_valid():
+            messages.success(request,_("Survey successfully created."))
+            
+            survey = survey_form.save()
+            return redirect("survey_detail", survey.slug)
+        context = {
+            "survey_form": survey_form,
+        }
+
+        return render(request, "survey/SurveyCreate.html", context)
     
