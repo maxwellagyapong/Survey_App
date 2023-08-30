@@ -57,6 +57,10 @@ class ImageQuestion(BaseQuestion):
     pass
     
     
+class FileQuestion(BaseQuestion):
+    pass
+    
+    
 class SurveySubmission(models.Model):
     survey = models.ForeignKey(Survey, verbose_name=_("Survey"), 
                                on_delete=models.CASCADE, related_name="submissions")
