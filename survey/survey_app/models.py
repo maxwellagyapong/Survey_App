@@ -44,3 +44,11 @@ class NumberQuestion(BaseQuestion):
     
 class SingleSelectQuestion(BaseQuestion):
     pass
+
+
+class SingleSelectOptions(models.Model):
+    select_question = models.ForeignKey(SingleSelectQuestion,
+                        verbose_name=_("Single Select Question"),
+                        on_delete=models.CASCADE, related_name="options")
+
+    value = models.CharField(_("Value"), max_length=50)
