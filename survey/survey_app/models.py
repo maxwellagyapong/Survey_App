@@ -14,6 +14,14 @@ class Survey(models.Model):
     def __str__(self) -> str:
         return self.name
 
+    def add_question(self, question):
+        question_content_type = ContentType.objects.get_for_model(question)
+        return SurveyQuestion.objects.create(
+            survey=self,
+            question_content_type=question_content_type,
+            question_id=question.pk
+        )
+
 
 class SurveyQuestion(models.Model):
     survey = models.ForeignKey(Survey, verbose_name=_("Survey"), 
@@ -23,14 +31,6 @@ class SurveyQuestion(models.Model):
                             on_delete=models.PROTECT)
     question_id = models.PositiveIntegerField(_("Question ID"))
     question = GenericForeignKey("question_content_type", "question_id")
-    
-    def add_question(self, question):
-        question_content_type = ContentType.objects.get_for_model(question)
-        return SurveyQuestion.objects.create(
-            survey=self,
-            question_content_type=question_content_type,
-            question_id=question.pk
-        )
     
     
 class BaseQuestion(models.Model):
