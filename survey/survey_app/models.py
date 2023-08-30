@@ -78,3 +78,6 @@ class SurveySubmission(models.Model):
                                on_delete=models.CASCADE, related_name="submissions")
     response = models.JSONField(_("Response"))
     dt_submission = models.DateTimeField(_("Date/Time Submission"), auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return self.survey.name
