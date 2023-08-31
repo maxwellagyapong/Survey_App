@@ -63,8 +63,8 @@
                 <span class="float-end">
                     <div class="btn-group">
                         <a href="{% url 'text_create' survey.slug %}" class="btn btn-primary">Add Text Question</a>
-                        {% comment %}<a href="{% url 'number_create' survey.slug %}" class="btn btn-primary">Add Number Question</a>
-                        <a href="{% url 'single_create' survey.slug %}" class="btn btn-primary">Add Single Option
+                        <a href="{% url 'number_create' survey.slug %}" class="btn btn-primary">Add Number Question</a>
+                        {% comment %}<a href="{% url 'single_create' survey.slug %}" class="btn btn-primary">Add Single Option
                             Question</a>
                     </div>{% endcomment %}
                 </span>
@@ -94,7 +94,7 @@
                             <td><a href="{% url 'text_update' survey.slug question.question.id %}"
                                     class="btn btn-primary btn-sm">Edit Question</a></td>
                             {% endif %}
-                            {% comment %}{% if type == "NumberQuestion" %}
+                            {% if type == "NumberQuestion" %}
                             <td>
                                 Min Input: {{question.question.min_value}}
                                 <br>
@@ -103,7 +103,7 @@
                             <td><a href="{% url 'number_update' survey.slug question.question.id %}"
                                     class="btn btn-primary btn-sm">Edit Question</a></td>
                             {% endif %}
-                            {% if type == "SingleSelectQuestion" %}
+                            {% comment %}{% if type == "SingleSelectQuestion" %}
                             <td>
                                 Options:
                                 {% for option in question.question.options.all %}
