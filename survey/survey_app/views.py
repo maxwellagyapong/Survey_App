@@ -49,7 +49,7 @@ class SurveyCreateView(generic.CreateView):
         return render(request, "survey/SurveyCreate.html", context)
     
     
-def survey_update(request, slug):
+def survey_update_view(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
     except Survey.DoesNotExist:
@@ -76,7 +76,7 @@ def survey_update(request, slug):
     return render(request, "survey/SurveyUpdate.html", context)
 
 
-def survey_delete(request, slug):
+def survey_delete_view(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
     except Survey.DoesNotExist:
@@ -92,7 +92,7 @@ def survey_delete(request, slug):
     return redirect("survey_list")
 
 
-def survey_result(request, slug):
+def survey_result_view(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
     except Survey.DoesNotExist:
@@ -115,4 +115,21 @@ def survey_result(request, slug):
     }
 
     return render(request, "survey/SurveyResult.html", context)
-    
+
+
+def survey_form_view(request, slug):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you trying to access does not exist."))
+        return redirect("/")  # TODO
+
+    context = {
+        "survey": survey,
+    }
+
+    return render(request, "survey/SurveyFormView.html", context)    
