@@ -1,0 +1,18 @@
+{% extends 'survey/base.html' %}
+
+{% block title %}Create Survey{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col mt-4">
+            <form action="{% url 'survey_create' %}" method="post">
+                {% csrf_token %}
+                {{survey_form.as_p}}
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

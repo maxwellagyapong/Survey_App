@@ -30,7 +30,7 @@ class SurveyDetailView(generic.DeleteView):
     
     
 class SurveyCreateView(generic.CreateView):
-    template_name = ""
+    template_name = "survey/SurveyCreate.html"
     
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         survey_form = SurveyForm(request.POST or None)
