@@ -30,24 +30,19 @@ class SurveyDetailView(generic.DeleteView):
         return Survey.objects.get(slug=slug)
     
     
-class SurveyCreateView(generic.CreateView):
-    template_name = "survey/SurveyCreate.html"
-    queryset = Survey.objects.all()
-    fields = ("name",)
-    
-    def post(self, request: HttpRequest, *args: str) -> HttpResponse:
-        survey_form = SurveyForm(request.POST or None)
-        
-        if survey_form.is_valid():
-            messages.success(request,_("Survey successfully created."))
-            
-            survey = survey_form.save()
-            return redirect("survey_detail", survey.slug)
-        context = {
-            "survey_form": survey_form,
-        }
+def survey_create_view(request):
+    survey_form = SurveyForm(request.POST or None)
+    if survey_form.is_valid():
+        messages.success(
+            request,
+            _("Survey successfully created."))
+        survey = survey_form.save()
+        return redirect("survey_detail", survey.slug)
+    context = {
+        "survey_form": survey_form,
+    }
 
-        return render(request, "survey/SurveyCreate.html", context)
+    return render(request, "survey/SurveyCreate.html", context)
     
     
 def survey_update_view(request, slug):
@@ -455,4 +450,7 @@ def single_select_option_update(request, slug, id, option_id):
         "single_select_options_form": single_select_options_form
     }
 
-    return render(request, "survey/SingleSelectOptionUpdate.html", context)    
+    return render(request, "survey/SingleSelectOptionUpdate.html", context)
+
+
+    
