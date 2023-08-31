@@ -1,4 +1,5 @@
-from typing import Any
+from typing import Any, Optional
+from django.db import models
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
@@ -48,3 +49,29 @@ class SurveyCreateView(generic.CreateView):
 
         return render(request, "survey/SurveyCreate.html", context)
     
+    
+def survey_update(request, slug):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to update does not exist."))
+        return redirect('survey_list')
+
+    survey_form = SurveyForm(request.POST or None, instance=survey)
+    if survey_form.is_valid():
+        messages.success(
+            request,
+            _("Survey successfully created."))
+        survey_form.save()
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "survey_form": survey_form,
+    }
+
+    return render(request, "survey/SurveyUpdate.html", context)    
