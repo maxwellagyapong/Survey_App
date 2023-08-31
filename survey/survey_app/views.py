@@ -132,4 +132,4 @@ def survey_form_view(request, slug):
         "survey": survey,
     }
 
-    return render(request, "survey/SurveyFormView.html", context)    
+    return render(request, "survey/SurveyForm.html", context)    
