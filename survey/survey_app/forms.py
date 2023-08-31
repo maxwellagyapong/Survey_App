@@ -36,3 +36,10 @@ class SingleSelectOptionsForm(forms.ModelForm):
     class Meta:
         model = SingleSelectOptions
         fields = ("value",)
+        
+        
+class ImageQuestionForm(forms.ModelForm):
+
+    class Meta:
+        model = TextQuestion
+        fields = ("label", "is_required",)

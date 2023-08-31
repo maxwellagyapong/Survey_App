@@ -146,7 +146,6 @@ def survey_form_submit_view(request, slug):
         messages.error(request, _(
             "Can't submit survey, this survey is no longer active."))
         return redirect("/")  # TODO
-    print(request.POST.dict())
     response = json.dumps(request.POST.dict(), indent=4)
     print(response)
     submission = SurveySubmission.objects.create(
