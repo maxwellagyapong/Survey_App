@@ -1,4 +1,3 @@
-from typing import Any, Optional
 from django.db import models
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
@@ -35,7 +34,7 @@ class SurveyCreateView(generic.CreateView):
     queryset = Survey.objects.all()
     fields = ("name",)
     
-    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: str) -> HttpResponse:
         survey_form = SurveyForm(request.POST or None)
         
         if survey_form.is_valid():

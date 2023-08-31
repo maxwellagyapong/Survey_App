@@ -1,0 +1,32 @@
+{% extends 'survey/base.html' %}
+
+{% block title %}Survey {{survey.name}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col mt-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Response</th>
+                        <th scope="col">Date/Time Submission</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <th scope="row">{{forloop.counter}}</th>
+                        <td>{{result.response}}</td>
+                        <td>{{result.dt_submission}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
