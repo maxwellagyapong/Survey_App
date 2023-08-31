@@ -25,8 +25,9 @@ urlpatterns = [
                 path("", single_select_question_update, name="single_update"),
                 path("option/", include([
                  path("", single_select_option_create, name="option_create"),
-                 ]))
-            ]))
+                 path("<int:option_id>/", single_select_option_update, 
+                      name="options_update")]))
+            ])),
         ])),
     ]))
 ]
