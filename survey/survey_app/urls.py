@@ -12,6 +12,8 @@ urlpatterns = [
         path("text/", include([
             path("", text_question_create, name="text_create"),
             path("<int:id>", text_question_update, name="text_update"),])),
-        
+        path("number/", include([
+            path("", number_question_create, name="number_create"),
+            ])),
         ])),
 ]

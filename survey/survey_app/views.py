@@ -227,7 +227,7 @@ def text_question_update(request, slug, id):
     return render(request, "survey/TextQuestionUpdate.html", context)
 
 
-def NumberQuestionCreate(request, slug):
+def number_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
     except Survey.DoesNotExist:
