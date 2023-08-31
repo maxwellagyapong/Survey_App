@@ -9,14 +9,21 @@ urlpatterns = [
         path("update/", survey_update_view, name="survey_update"),
         path("delete/", survey_delete_view, name="survey_delete"),
         path("result/", survey_result_view, name="survey_result"),
+        
         path("text/", include([
             path("", text_question_create, name="text_create"),
             path("<int:id>", text_question_update, name="text_update"),])),
+        
         path("number/", include([
             path("", number_question_create, name="number_create"),
             path("<int:id>/", number_question_update, name="number_update")])),
+        
         path("single/", include([
             path("", single_select_question_create, name="single_create"),
+            
+            path("<int:id>/", include([
+                path("", single_select_question_update, name="single_update"),
+                ]))
             ]))
         ])),
 ]
