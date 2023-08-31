@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col mt-5">
-            <form action="{% comment %}{% url 'survey_submit' survey.slug%}{% endcomment %}" method="post">
+            <form action="{% url 'survey_submit' survey.slug%}" method="post">
                 {% csrf_token %}
 
                 {% for question in survey.questions.all %}

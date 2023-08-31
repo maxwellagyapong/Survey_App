@@ -85,7 +85,7 @@ def survey_delete_view(request, slug):
 
     if survey is None:
         messages.error(request, _(
-            "The survey you trying to delete does not exist."))
+            "The survey you are trying to delete does not exist."))
         return redirect("survey_list")
 
     survey.delete()
@@ -144,7 +144,7 @@ def survey_form_submit_view(request, slug):
 
     if survey is None:
         messages.error(request, _(
-            "The survey you are trying to access does not exist."))
+            "Can't submit survey, this survey is no longer active."))
         return redirect("/")  # TODO
     print(request.POST.dict())
     response = json.dumps(request.POST.dict(), indent=4)
@@ -154,5 +154,32 @@ def survey_form_submit_view(request, slug):
         response=response,
     )
     submission.save()
-    messages.success(request, _(f"Thank you for your submission."))
-    return redirect("survey_form", survey.slug)  # TODO    
+    messages.success(request, _("Thank you for your submission."))
+    return redirect("survey_form", survey.slug)  # TODO
+
+
+def TextQuestionCreate(request, slug):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to add question does not exist."))
+        return redirect("survey_list")
+
+    text_question_form = TextQuestionForm(request.POST or None)
+    if text_question_form.is_valid():
+        question = text_question_form.save()
+        survey.add_question(question)
+        messages.success(request, _(
+            f"Question has successfully added to survey {survey.name}."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "text_question_form": text_question_form
+    }
+
+    return render(request, "survey/TextQuestionCreate.html", context)    
