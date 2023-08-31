@@ -29,5 +29,8 @@ urlpatterns = [
                       name="options_update")]))
             ])),
         ])),
+        path("image/", include([
+            path("", image_question_create, name="text_create"),
+            ]))
     ]))
 ]
