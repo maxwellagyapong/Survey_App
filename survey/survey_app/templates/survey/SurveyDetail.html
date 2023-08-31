@@ -8,11 +8,11 @@
     <div class="row">
         <div class="col mt-4">
             <h1>Survey {{survey.name}} <h5 class="ui header">
-                Copy and share Survey URL: {% comment %}<a href="{% url 'survey_form' survey.slug%}">{{ request.build_absolute_uri|cut:request.path }}{% url 'survey_form' survey.slug %}</a></h5>{% endcomment %}
+                Copy and share Survey URL: <a href="{% url 'survey_form' survey.slug%}">{{ request.build_absolute_uri|cut:request.path }}{% url 'survey_form' survey.slug %}</a></h5>
                 <span class="float-end">
                     <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                         <div class="btn-group" role="group">
-                            {% comment %}<a href="{% url 'survey_form' survey.slug%}" class="btn btn-primary">View Survey</a>{% endcomment %}
+                            <a href="{% url 'survey_form' survey.slug%}" class="btn btn-primary">View Survey</a>
                             <a href="{% url 'survey_result' survey.slug%}" class="btn btn-primary">Result</a>
                             <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
                                 data-mdb-toggle="dropdown" aria-expanded="false">
