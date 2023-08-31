@@ -285,4 +285,12 @@ def number_question_update(request, slug, id):
         number_question_form.save()
         messages.success(request, _(
             f"Question has successfully update to survey {survey.name}."))
-        return redirect("survey_detail", slug)    
+        return redirect("survey_detail", slug)
+    
+    context = {
+        "survey": survey,
+        "number_question": number_question,
+        "number_question_form": number_question_form
+    }
+
+    return render(request, "survey/NumberQuestionUpdate.html", context)    
