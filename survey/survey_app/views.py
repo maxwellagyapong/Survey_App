@@ -251,4 +251,38 @@ def number_question_create(request, slug):
         "number_question_form": number_question_form
     }
 
-    return render(request, "survey/NumberQuestionCreate.html", context)    
+    return render(request, "survey/NumberQuestionCreate.html", context)
+
+
+def number_question_update(request, slug, id):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you trying to update does not exist."))
+        return redirect("survey_list")
+
+    try:
+        number_question: NumberQuestion | None = NumberQuestion.objects.filter(
+            id=id).first()
+    except NumberQuestion.DoesNotExist:
+        number_question = None
+
+    if number_question is None:
+        messages.error(request, _(
+            "The question you trying to update does not exist."))
+        return redirect("survey_detail", slug)
+
+    number_question_form = NumberQuestionForm(
+        request.POST or None,
+        instance=number_question
+    )
+
+    if number_question_form.is_valid():
+        number_question_form.save()
+        messages.success(request, _(
+            f"Question has successfully update to survey {survey.name}."))
+        return redirect("survey_detail", slug)    
