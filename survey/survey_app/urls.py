@@ -23,7 +23,10 @@ urlpatterns = [
             
             path("<int:id>/", include([
                 path("", single_select_question_update, name="single_update"),
-                ]))
+                path("option/", include([
+                 path("", single_select_option_create, name="option_create"),
+                 ]))
             ]))
         ])),
+    ]))
 ]

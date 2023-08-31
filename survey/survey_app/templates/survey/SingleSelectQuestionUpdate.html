@@ -9,7 +9,7 @@
             <form action="{% url 'single_update' survey.slug single_select_question.id %}" method="post">
                 {% csrf_token %}
                 {{single_select_question_form.as_p}}
-                <button type="submit" class="btn btn-primary">Edit Question</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>

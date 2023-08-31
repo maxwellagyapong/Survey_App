@@ -92,7 +92,7 @@
                             {% if type == "TextQuestion" %}
                             <td>Input Length: {{question.question.input_length}} character</td>
                             <td><a href="{% url 'text_update' survey.slug question.question.id %}"
-                                    class="btn btn-primary btn-sm">Update</a></td>
+                                    class="btn btn-primary btn-sm">Edit Question</a></td>
                             {% endif %}
                             {% if type == "NumberQuestion" %}
                             <td>
@@ -101,26 +101,26 @@
                                 Max Input: {{question.question.max_value}}
                             </td>
                             <td><a href="{% url 'number_update' survey.slug question.question.id %}"
-                                    class="btn btn-primary btn-sm">Update</a></td>
+                                    class="btn btn-primary btn-sm">Edit Question</a></td>
                             {% endif %}
                             {% if type == "SingleSelectQuestion" %}
                             <td>
                                 Options:
-                                {% comment %}{% for option in question.question.options.all %}
+                                {% for option in question.question.options.all %}
                                 <ul>
-                                    <li>{{option.value}} <span class="float-end"><a
+                                    <li>{{option.value}} <span class="float-end">{% comment %}<a
                                                 href="{% url 'options_update' survey.slug question.question.id option.id %}"
-                                                class="btn btn-primay">Edit</a></span></li>
+                                                class="btn btn-primay">Edit</a>{% endcomment %}</span></li>
                                 </ul>
-                                {% endfor %}{% endcomment %}
+                                {% endfor %}
                             </td>
                             <td>
                                 <a href="{% url 'single_update' survey.slug question.question.id %}"
-                                    class="btn btn-primary btn-sm">Update</a>
+                                    class="btn btn-primary btn-sm">Edit Question</a>
                                 <br>
-                                {% comment %}<a href="{% url 'option_create' survey.slug question.question.id %}"
+                                <a href="{% url 'option_create' survey.slug question.question.id %}"
                                     class="btn btn-primary btn-sm">Add Options</a>
-                            </td>{% endcomment %}
+                            </td>
                             {% endif %}
                             {% endwith %}
                         </tr>
