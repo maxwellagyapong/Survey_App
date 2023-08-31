@@ -304,7 +304,7 @@ def single_select_question_create(request, slug):
 
     if survey is None:
         messages.error(request, _(
-            "The survey you trying to update does not exist."))
+            "The survey you are trying to update does not exist."))
         return redirect("survey_list")
 
     single_select_question_form = SingleSelectQuestionForm(
