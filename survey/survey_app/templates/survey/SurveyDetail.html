@@ -108,9 +108,9 @@
                                 Options:
                                 {% for option in question.question.options.all %}
                                 <ul>
-                                    <li>{{option.value}} <span class="float-end">{% comment %}<a
+                                    <li>{{option.value}} <span class="float-end"><a
                                                 href="{% url 'options_update' survey.slug question.question.id option.id %}"
-                                                class="btn btn-primay">Edit</a>{% endcomment %}</span></li>
+                                                class="btn btn-primay">Edit</a></span></li>
                                 </ul>
                                 {% endfor %}
                             </td>
