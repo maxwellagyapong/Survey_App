@@ -29,8 +29,9 @@ urlpatterns = [
                       name="options_update")]))
             ])),
         ])),
+        
         path("image/", include([
             path("", image_question_create, name="image_create"),
-            path("<int:id>", text_question_update, name="image_update"),]))
+            path("<int:id>", image_question_update, name="image_update"),])),
     ]))
 ]

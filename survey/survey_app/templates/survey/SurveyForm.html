@@ -22,6 +22,15 @@
                             for="{{question.question.label}}_id">{{question.question.label}}{% if question.question.is_required %}*{% endif %}</label>
                     </div>
                     {% endif %}
+                    {% if type == "ImageQuestion" %}
+                    {{question.question.label}}
+                    <label class="form-label"
+                    for="{{question.question.label}}_id">{{question.question.label}}{% if question.question.is_required %}*{% endif %}</label>
+                    <div class="form-outline">
+                        <input type="file" id="{{question.question.label}}_id" name="{{question.question.label}}"
+                            class="form-control" {% if question.question.is_required %}required{% endif %} />
+                    </div>
+                    {% endif %}
                     {% if type == "NumberQuestion" %}
                     <div class="form-outline">
                         <input type="number" id="{{question.question.label}}_id" name="{{question.question.label}}"
@@ -33,6 +42,8 @@
                     {% endif %}
                     {% if type == "SingleSelectQuestion" %}
                     {{question.question.label}}
+                    <label class="form-label"
+                    for="{{question.question.label}}_id">{% if question.question.is_required %}*{% endif %}</label>
                     {% for option in question.question.options.all %}
                     <div class="row">
                         <div class="col mt-3">
