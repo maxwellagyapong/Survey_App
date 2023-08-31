@@ -1,0 +1,18 @@
+{% extends 'survey/base.html' %}
+
+{% block title %}Edit Options for Survey {{survey.name}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col mt-4">
+            <form action="{% url 'option_create' survey.slug single_select_question.id%}" method="post">
+                {% csrf_token %}
+                {{single_select_options_form.as_p}}
+                <button type="submit" class="btn btn-primary">Edit Option</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

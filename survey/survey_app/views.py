@@ -456,4 +456,4 @@ def single_select_option_update(request, slug, id, option_id):
         "single_select_options_form": single_select_options_form
     }
 
-    return render(request, "survey/SingleSelectOptionsUpdate.html", context)    
+    return render(request, "survey/SingleSelectOptionUpdate.html", context)    
