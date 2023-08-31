@@ -30,7 +30,7 @@ urlpatterns = [
             ])),
         ])),
         path("image/", include([
-            path("", image_question_create, name="text_create"),
+            path("", image_question_create, name="image_create"),
             ]))
     ]))
 ]
