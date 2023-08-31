@@ -321,4 +321,47 @@ def single_select_question_create(request, slug):
         "single_select_question_form": single_select_question_form,
     }
 
-    return render(request, "survey/SingleSelectQuestionCreate.html", context)    
+    return render(request, "survey/SingleSelectQuestionCreate.html", context)
+
+
+def single_select_question_update(request, slug, id):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to update does not exist."))
+        return redirect("survey_list")
+
+    try:
+        single_select_question: SingleSelectQuestion | None = SingleSelectQuestion.objects.filter(
+            id=id).first()
+    except SingleSelectQuestion.DoesNotExist:
+        single_select_question = None
+
+    if single_select_question is None:
+        messages.error(request, _(
+            "The question you are trying to update does not exist."))
+        return redirect("survey_detail", slug)
+
+    single_select_question_form = SingleSelectQuestionForm(
+        request.POST or None,
+        instance=single_select_question
+    )
+
+    if single_select_question_form.is_valid():
+        single_select_question_form.save()
+        messages.success(request, _(
+            f"Question has successfully update to survey {survey.name}."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "single_select_question": single_select_question,
+        "single_select_question_form": single_select_question_form
+    }
+
+    return render(request, "survey/SingleSelectQuestionUpdate.html", context)
+    
