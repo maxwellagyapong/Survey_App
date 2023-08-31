@@ -1,3 +1,4 @@
+import json
 from django.db import models
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
@@ -132,4 +133,26 @@ def survey_form_view(request, slug):
         "survey": survey,
     }
 
-    return render(request, "survey/SurveyForm.html", context)    
+    return render(request, "survey/SurveyForm.html", context)
+
+
+def survey_form_submit_view(request, slug):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you trying to access does not exist."))
+        return redirect("/")  # TODO
+    print(request.POST.dict())
+    response = json.dumps(request.POST.dict(), indent=4)
+    print(response)
+    submission = SurveySubmission.objects.create(
+        survey=survey,
+        response=response,
+    )
+    submission.save()
+    messages.success(request, _(f"Thank you for your submission."))
+    return redirect("survey_form", survey.slug)  # TODO    
