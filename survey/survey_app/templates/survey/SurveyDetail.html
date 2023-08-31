@@ -1,0 +1,134 @@
+{% extends 'survey/base.html' %}
+{% load survey %}
+
+{% block title %}Survey {{survey.name}}{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col mt-4">
+            <h1>Survey {{survey.name}} <h5 class="ui header">
+                Copy and share Survey URL: {% comment %}<a href="{% url 'survey_form' survey.slug%}">{{ request.build_absolute_uri|cut:request.path }}{% url 'survey_form' survey.slug %}</a></h5>{% endcomment %}
+                <span class="float-end">
+                    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                        <div class="btn-group" role="group">
+                            {% comment %}<a href="{% url 'survey_form' survey.slug%}" class="btn btn-primary">View Survey</a>{% endcomment %}
+                            <a href="{% url 'survey_result' survey.slug%}" class="btn btn-primary">Result</a>
+                            <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle"
+                                data-mdb-toggle="dropdown" aria-expanded="false">
+                                More Action
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <li>
+                                    {% comment %}<a href="{% url 'survey_update' survey.slug %}" class="btn btn-primary">Edit Survey
+                                        Name</a>{% endcomment %}
+                                </li>
+                                <li>
+                                    <button type="button" class="btn btn-danger" data-mdb-toggle="modal"
+                                        data-mdb-target="#delete-survey">
+                                        Delete Survey
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="delete-survey" tabindex="-1" aria-labelledby="delete-surveyLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="delete-surveyLabel">Delete Survey {{survey.name}}</h5>
+                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">Are you sure you want to delete this survey?</div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-mdb-dismiss="modal">Close</button>
+                                    {% comment %}<a href="{% url 'survey_delete' survey.slug%}" class="btn btn-danger">Delete
+                                        Survey</a>{% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-3">
+            <h1>Questions
+                <span class="float-end">
+                    {% comment %}<div class="btn-group">
+                        <a href="{% url 'text_create' survey.slug %}" class="btn btn-primary">Add Text Question</a>
+                        <a href="{% url 'number_create' survey.slug %}" class="btn btn-primary">Add Number Question</a>
+                        <a href="{% url 'single_create' survey.slug %}" class="btn btn-primary">Add Single Option
+                            Question</a>
+                    </div>{% endcomment %}
+                </span>
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-mt-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Label</th>
+                            <th scope="col">Is Required?</th>
+                            <th scope="col">Additional Fields</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    {% comment %}<tbody>
+                        {% for question in survey.questions.all %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{question.question.label}}</td>
+                            <td>{{question.question.is_required}}</td>
+                            {% with question.question|class_name as type %}
+                            {% if type == "TextQuestion" %}
+                            <td>Input Length: {{question.question.input_length}} character</td>
+                            <td><a href="{% url 'text_update' survey.slug question.question.id %}"
+                                    class="btn btn-primary btn-sm">Edit Question</a></td>
+                            {% endif %}
+                            {% if type == "NumberQuestion" %}
+                            <td>
+                                Min Input: {{question.question.min_value}}
+                                <br>
+                                Max Input: {{question.question.max_value}}
+                            </td>
+                            <td><a href="{% url 'number_update' survey.slug question.question.id %}"
+                                    class="btn btn-primary btn-sm">Edit Question</a></td>
+                            {% endif %}
+                            {% if type == "SingleSelectQuestion" %}
+                            <td>
+                                Options:
+                                {% for option in question.question.options.all %}
+                                <ul>
+                                    <li>{{option.value}} <span class="float-end"><a
+                                                href="{% url 'options_update' survey.slug question.question.id option.id %}"
+                                                class="btn btn-primay">Edit</a></span></li>
+                                </ul>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{% url 'single_update' survey.slug question.question.id %}"
+                                    class="btn btn-primary btn-sm">Edit Question</a>
+                                <br>
+                                <a href="{% url 'option_create' survey.slug question.question.id %}"
+                                    class="btn btn-primary btn-sm">Add Options</a>
+                            </td>
+                            {% endif %}
+                            {% endwith %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>{% endcomment %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

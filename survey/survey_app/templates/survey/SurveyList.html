@@ -30,7 +30,7 @@
                         <td>{{row.name}}</td>
                         <td>{{row.dt_created}}</td>
                         <td>{{row.dt_update}}</td>
-                        {% comment %}<td><a href="{% url 'survey_detail' row.slug %}">View Survay</a></td>{% endcomment %}
+                        <td><a href="{% url 'survey_detail' row.slug %}">View Survay</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

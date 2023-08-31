@@ -16,7 +16,7 @@ class SurveyListView(generic.ListView):
     
     
 class SurveyDetailView(generic.DeleteView):
-    template_name = ""
+    template_name = "survey/SurveyDeatail.html/"
     
     def get_queryset(self):
         slug = self.kwargs.get('slug', None)
