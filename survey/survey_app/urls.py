@@ -11,7 +11,7 @@ urlpatterns = [
         path("result/", survey_result_view, name="survey_result"),
         path("text/", include([
             path("", text_question_create, name="text_create"),
-            ])),
+            path("<int:id>", text_question_update, name="text_update"),])),
         
         ])),
 ]
