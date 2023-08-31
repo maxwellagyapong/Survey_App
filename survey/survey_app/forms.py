@@ -43,3 +43,10 @@ class ImageQuestionForm(forms.ModelForm):
     class Meta:
         model = TextQuestion
         fields = ("label", "is_required",)
+        
+        
+class FileQuestionForm(forms.ModelForm):
+
+    class Meta:
+        model = TextQuestion
+        fields = ("label", "is_required",)
