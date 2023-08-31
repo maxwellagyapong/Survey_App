@@ -182,4 +182,46 @@ def text_question_create(request, slug):
         "text_question_form": text_question_form
     }
 
-    return render(request, "survey/TextQuestionCreate.html", context)    
+    return render(request, "survey/TextQuestionCreate.html", context)
+
+
+def text_question_update(request, slug, id):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to update does not exist."))
+        return redirect("survey_list")
+
+    try:
+        text_question: TextQuestion | None = TextQuestion.objects.filter(
+            id=id).first()
+    except TextQuestion.DoesNotExist:
+        text_question = None
+
+    if text_question is None:
+        messages.error(request, _(
+            "The question you are trying to update does not exist."))
+        return redirect("survey_detail", slug)
+
+    text_question_form = TextQuestionForm(
+        request.POST or None,
+        instance=text_question
+    )
+
+    if text_question_form.is_valid():
+        text_question_form.save()
+        messages.success(request, _(
+            f"Question has successfully updated to survey {survey.name}."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "text_question": text_question,
+        "text_question_form": text_question_form
+    }
+
+    return render(request, "survey/TextQuestionUpdate.html", context)    
