@@ -404,4 +404,56 @@ def single_select_option_create(request, slug, id):
         "single_select_options_form": single_select_options_form,
     }
 
-    return render(request, "survey/SingleSelectOptionCreate.html", context)    
+    return render(request, "survey/SingleSelectOptionCreate.html", context)
+
+
+def single_select_option_update(request, slug, id, option_id):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to update does not exist."))
+        return redirect("survey_list")
+
+    try:
+        single_select_question: SingleSelectQuestion | None = SingleSelectQuestion.objects.filter(
+            id=id).first()
+    except SingleSelectQuestion.DoesNotExist:
+        single_select_question = None
+
+    if single_select_question is None:
+        messages.error(request, _(
+            "The question you are trying to update does not exist."))
+        return redirect("survey_detail", slug)
+
+    try:
+        option: SingleSelectOptions | None = SingleSelectOptions.objects.filter(
+            id=option_id).first()
+    except SingleSelectOptions.DoesNotExist:
+        option = None
+
+    if option is None:
+        messages.error(request, _(
+            "The option you are trying to update does not exist."))
+        return redirect("survey_detail", slug)
+
+    single_select_options_form = SingleSelectOptionsForm(
+        request.POST or None, instance=option)
+
+    if single_select_options_form.is_valid():
+        single_select_options_form.save()
+        messages.success(request, _(
+            f"Option has successfully updated."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "single_select_question": single_select_question,
+        "option": option,
+        "single_select_options_form": single_select_options_form
+    }
+
+    return render(request, "survey/SingleSelectOptionsUpdate.html", context)    
