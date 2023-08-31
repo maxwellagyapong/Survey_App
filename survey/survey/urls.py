@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from survey_app.views import survey_form_view
+from survey_app.views import survey_form_view, survey_form_submit_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('survey/', include('survey_app.urls')),
     path("<slug:slug>/", survey_form_view, name="survey_form"),
+    path("<slug:slug>/submit", survey_form_submit_view, name="survey_submit"),
 ]

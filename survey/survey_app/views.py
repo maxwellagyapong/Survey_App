@@ -126,7 +126,7 @@ def survey_form_view(request, slug):
 
     if survey is None:
         messages.error(request, _(
-            "The survey you trying to access does not exist."))
+            "The survey you are trying to access does not exist."))
         return redirect("/")  # TODO
 
     context = {
@@ -144,7 +144,7 @@ def survey_form_submit_view(request, slug):
 
     if survey is None:
         messages.error(request, _(
-            "The survey you trying to access does not exist."))
+            "The survey you are trying to access does not exist."))
         return redirect("/")  # TODO
     print(request.POST.dict())
     response = json.dumps(request.POST.dict(), indent=4)
