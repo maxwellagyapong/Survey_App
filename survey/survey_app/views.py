@@ -158,7 +158,7 @@ def survey_form_submit_view(request, slug):
     return redirect("survey_form", survey.slug)  # TODO
 
 
-def TextQuestionCreate(request, slug):
+def text_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
     except Survey.DoesNotExist:

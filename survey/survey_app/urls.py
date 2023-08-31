@@ -9,5 +9,9 @@ urlpatterns = [
         path("update/", survey_update_view, name="survey_update"),
         path("delete/", survey_delete_view, name="survey_delete"),
         path("result/", survey_result_view, name="survey_result"),
-        ]))
+        path("text/", include([
+            path("", text_question_create, name="text_create"),
+            ])),
+        
+        ])),
 ]
