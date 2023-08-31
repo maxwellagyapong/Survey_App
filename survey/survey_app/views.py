@@ -18,7 +18,7 @@ class SurveyListView(generic.ListView):
 class SurveyDetailView(generic.DeleteView):
     template_name = "survey/SurveyDetail.html/"
     
-    def get_queryset(self):
+    def get_object(self):
         slug = self.kwargs.get('slug', None)
         
         if slug == None:
@@ -26,7 +26,7 @@ class SurveyDetailView(generic.DeleteView):
             "The survey you are trying to access does not exist."))
             return redirect("survey_list")
             
-        return Survey.objects.filter(slug=slug)
+        return Survey.objects.get(slug=slug)
     
     
 class SurveyCreateView(generic.CreateView):
