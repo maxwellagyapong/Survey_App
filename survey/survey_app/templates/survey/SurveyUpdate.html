@@ -9,7 +9,7 @@
             <form action="{% url 'survey_update' survey.slug %}" method="post">
                 {% csrf_token %}
                 {{survey_form.as_p}}
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>

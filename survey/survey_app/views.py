@@ -65,13 +65,29 @@ def survey_update(request, slug):
     if survey_form.is_valid():
         messages.success(
             request,
-            _("Survey successfully created."))
+            _("Survey successfully updated."))
         survey_form.save()
-        return redirect("survey_detail", slug)
+        return redirect("survey_list")
 
     context = {
         "survey": survey,
         "survey_form": survey_form,
     }
 
-    return render(request, "survey/SurveyUpdate.html", context)    
+    return render(request, "survey/SurveyUpdate.html", context)
+
+
+def survey_delete(request, slug):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you trying to delete does not exist."))
+        return redirect("survey_list")
+
+    survey.delete()
+    messages.success(request, _("Survey has successfully deleted."))
+    return redirect("survey_list")    
