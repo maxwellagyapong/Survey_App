@@ -22,7 +22,7 @@ class SurveyDetailView(generic.DeleteView):
     def get_object(self):
         slug = self.kwargs.get('slug', None)
         
-        if slug == None:
+        if slug is None:
             messages.error(self.request, _(
             "The survey you are trying to access does not exist."))
             return redirect("survey_list")
@@ -453,4 +453,29 @@ def single_select_option_update(request, slug, id, option_id):
     return render(request, "survey/SingleSelectOptionUpdate.html", context)
 
 
+def image_question_create(request, slug):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to add question does not exist."))
+        return redirect("survey_list")
+
+    image_question_form = ImageQuestionForm(request.POST or None)
+    if image_question_form.is_valid():
+        question = image_question_form.save()
+        survey.add_question(question)
+        messages.success(request, _(
+            f"Question has successfully added to survey {survey.name}."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "image_question_form": image_question_form
+    }
+
+    return render(request, "survey/ImageQuestionCreate.html", context)
     
