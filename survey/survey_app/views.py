@@ -364,4 +364,44 @@ def single_select_question_update(request, slug, id):
     }
 
     return render(request, "survey/SingleSelectQuestionUpdate.html", context)
-    
+
+
+def single_select_option_create(request, slug, id):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to update does not exist."))
+        return redirect("survey_list")
+
+    try:
+        single_select_question: SingleSelectQuestion | None = SingleSelectQuestion.objects.filter(
+            id=id).first()
+    except SingleSelectQuestion.DoesNotExist:
+        single_select_question = None
+
+    if single_select_question is None:
+        messages.error(request, _(
+            "The question you are trying to update does not exist."))
+        return redirect("survey_detail", slug)
+
+    single_select_options_form = SingleSelectOptionsForm(
+        request.POST or None)
+    if single_select_options_form.is_valid():
+        options = single_select_options_form.save(commit=False)
+        options.select_question = single_select_question
+        options.save()
+        messages.success(request, _(
+            f"Option has successfully added to question."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "single_select_question": single_select_question,
+        "single_select_options_form": single_select_options_form,
+    }
+
+    return render(request, "survey/SingleSelectOptionsCreate.html", context)    
