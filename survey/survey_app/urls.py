@@ -7,5 +7,6 @@ urlpatterns = [
     path("<slug:slug>/", include([
         path("", SurveyDetailView.as_view(), name="survey_detail"),
         path("update/", survey_update, name="survey_update"),
-        path("delete/", survey_delete, name="survey_delete"),]))
+        path("delete/", survey_delete, name="survey_delete"),
+        path("result/", survey_result, name="survey_result"),]))
 ]
