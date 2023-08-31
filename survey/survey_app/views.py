@@ -404,4 +404,4 @@ def single_select_option_create(request, slug, id):
         "single_select_options_form": single_select_options_form,
     }
 
-    return render(request, "survey/SingleSelectOptionsCreate.html", context)    
+    return render(request, "survey/SingleSelectOptionCreate.html", context)    
