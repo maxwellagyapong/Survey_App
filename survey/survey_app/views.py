@@ -224,4 +224,31 @@ def text_question_update(request, slug, id):
         "text_question_form": text_question_form
     }
 
-    return render(request, "survey/TextQuestionUpdate.html", context)    
+    return render(request, "survey/TextQuestionUpdate.html", context)
+
+
+def NumberQuestionCreate(request, slug):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to add question does not exist."))
+        return redirect("survey_list")
+
+    number_question_form = NumberQuestionForm(request.POST or None)
+    if number_question_form.is_valid():
+        question = number_question_form.save()
+        survey.add_question(question)
+        messages.success(request, _(
+            f"Question has successfully added to survey {survey.name}."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "number_question_form": number_question_form
+    }
+
+    return render(request, "survey/NumberQuestionCreate.html", context)    
