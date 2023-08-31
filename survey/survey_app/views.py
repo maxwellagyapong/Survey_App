@@ -296,7 +296,7 @@ def number_question_update(request, slug, id):
     return render(request, "survey/NumberQuestionUpdate.html", context)
 
 
-def SingleSelectQuestionCreate(request, slug):
+def single_select_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
     except Survey.DoesNotExist:

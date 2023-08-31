@@ -16,4 +16,7 @@ urlpatterns = [
             path("", number_question_create, name="number_create"),
             path("<int:id>/", number_question_update, name="number_update")])),
         ])),
+        path("single/", include([
+            path("", single_select_question_create, name="single_create"),
+            ]))
 ]
