@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col mt-4">
             <span class="float-end">
-                <a href="{% url 'survey_create' %}" class="btn btn-info">Create Survey</a>
+                {% comment %}<a href="{% url 'survey_create' %}" class="btn btn-info">Create Survey</a>{% endcomment %}
             </span>
         </div>
     </div>
@@ -24,13 +24,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in survey_list %}
+                    {% for row in object_list %}
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td>{{row.name}}</td>
                         <td>{{row.dt_created}}</td>
                         <td>{{row.dt_update}}</td>
-                        <td><a href="{% url 'survey_detail' row.slug %}">View Survay</a></td>
+                        {% comment %}<td><a href="{% url 'survey_detail' row.slug %}">View Survay</a></td>{% endcomment %}
                     </tr>
                     {% endfor %}
                 </tbody>

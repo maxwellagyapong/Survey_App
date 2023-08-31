@@ -12,7 +12,7 @@ from django.views import generic
 
 class SurveyListView(generic.ListView):
     queryset = Survey.objects.all()
-    template_name = ""
+    template_name = "survey/SurveyList.html"
     
     
 class SurveyDetailView(generic.DeleteView):
