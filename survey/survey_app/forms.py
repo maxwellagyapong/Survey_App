@@ -1,6 +1,7 @@
 from django import forms
 from .models import (Survey, TextQuestion, NumberQuestion,
-                    SingleSelectQuestion, SingleSelectOptions,)
+                    SingleSelectQuestion, SingleSelectOptions,
+                    ImageQuestion, FileQuestion)
 
 
 class SurveyForm(forms.ModelForm):
@@ -41,12 +42,12 @@ class SingleSelectOptionsForm(forms.ModelForm):
 class ImageQuestionForm(forms.ModelForm):
 
     class Meta:
-        model = TextQuestion
+        model = ImageQuestion
         fields = ("label", "is_required",)
         
         
 class FileQuestionForm(forms.ModelForm):
 
     class Meta:
-        model = TextQuestion
+        model = FileQuestion
         fields = ("label", "is_required",)
