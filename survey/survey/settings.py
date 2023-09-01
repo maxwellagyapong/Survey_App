@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     # Local apps
     "survey_app",
+    "user_app",
 ]
 
 MIDDLEWARE = [

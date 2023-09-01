@@ -142,10 +142,14 @@ def survey_form_submit_view(request, slug):
             "Can't submit survey, this survey is no longer active."))
         return redirect("/")  # TODO
     response = json.dumps(request.POST.dict(), indent=4)
+    # image = request.FILES['image']
+    # file = request.FILES['file']
     print(response)
     submission = SurveySubmission.objects.create(
         survey=survey,
         response=response,
+        # image = image,
+        # file = file,
     )
     submission.save()
     messages.success(request, _("Thank you for your submission."))
