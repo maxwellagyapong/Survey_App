@@ -35,7 +35,7 @@ urlpatterns = [
             path("", image_question_create, name="image_create"),
             path("<int:id>", image_question_update, name="image_update"),])),
         
-        path("image/", include([
+        path("file/", include([
             path("", file_question_create, name="file_create"),
             ])),
         
