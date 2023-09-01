@@ -23,4 +23,5 @@ urlpatterns = [
     path('survey/', include('survey_app.urls')),
     path("<slug:slug>/", survey_form_view, name="survey_form"),
     path("<slug:slug>/submit", survey_form_submit_view, name="survey_submit"),
+    path('account/', include('user_app.urls')),
 ]

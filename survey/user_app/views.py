@@ -3,20 +3,20 @@ from .forms import LoginForm
 from django.contrib import messages
 
 def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST, None)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            
-            if username == 'master' and password == 'keypass':
-                request.session['is_authenticated'] = True
-                return redirect('survey_list')  
-            else:
-                messages.error(request, 'Invalid credentials. Please try again.')
+    login_form = LoginForm(request.POST, None)
+    if login_form.is_valid():
+        username = login_form.cleaned_data['username']
+        password = login_form.cleaned_data['password']
         
+        if username is 'master' and password is 'keypass':
+            request.session['is_authenticated'] = True
+            messages.success(request, 'Welcome Survey Admin!')
+            return redirect('survey_list')  
+        else:
+            messages.error(request, 'Invalid credentials. Please try again.') 
+    
     context = {
-        "form": form
+        "login_form": login_form
     }
     
-    return render(request, 'user/login.html', context)
+    return render(request, 'user/UserLogin.html', context)
