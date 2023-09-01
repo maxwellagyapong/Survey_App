@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from .models import CustomUser
 from .forms import LoginForm
 from django.contrib import messages
 
