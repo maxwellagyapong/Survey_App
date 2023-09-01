@@ -38,6 +38,5 @@ urlpatterns = [
         path("file/", include([
             path("", file_question_create, name="file_create"),
             path("<int:id>", file_question_update, name="file_update"),])),
-        
     ]))
 ]
