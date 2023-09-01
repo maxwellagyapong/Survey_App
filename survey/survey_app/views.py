@@ -546,4 +546,46 @@ def file_question_create(request, slug):
         "file_question_form": file_question_form
     }
 
-    return render(request, "survey/FileQuestionCreate.html", context)    
+    return render(request, "survey/FileQuestionCreate.html", context)
+
+
+def file_question_update(request, slug, id):
+    try:
+        survey: Survey | None = Survey.objects.filter(slug=slug).first()
+    except Survey.DoesNotExist:
+        survey = None
+
+    if survey is None:
+        messages.error(request, _(
+            "The survey you are trying to update does not exist."))
+        return redirect("survey_list")
+
+    try:
+        file_question: FileQuestion | None = FileQuestion.objects.filter(
+            id=id).first()
+    except FileQuestion.DoesNotExist:
+        file_question = None
+
+    if file_question is None:
+        messages.error(request, _(
+            "The question you are trying to update does not exist."))
+        return redirect("survey_detail", slug)
+
+    file_question_form = FileQuestionForm(
+        request.POST or None,
+        instance=file_question
+    )
+
+    if file_question_form.is_valid():
+        file_question_form.save()
+        messages.success(request, _(
+            f"Question has successfully updated to survey {survey.name}."))
+        return redirect("survey_detail", slug)
+
+    context = {
+        "survey": survey,
+        "file_question": file_question,
+        "file_question_form": file_question_form
+    }
+
+    return render(request, "survey/FileQuestionUpdate.html", context)    
