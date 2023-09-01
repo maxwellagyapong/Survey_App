@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col mt-5">
-            <form action="{% url 'survey_submit' survey.slug%}" method="post">
+            <form action="{% url 'survey_submit' survey.slug%}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 {% for question in survey.questions.all %}
@@ -23,6 +23,15 @@
                     </div>
                     {% endif %}
                     {% if type == "ImageQuestion" %}
+                    {{question.question.label}}
+                    <label class="form-label"
+                    for="{{question.question.label}}_id">{{question.question.label}}{% if question.question.is_required %}*{% endif %}</label>
+                    <div class="form-outline">
+                        <input type="file" id="{{question.question.label}}_id" name="{{question.question.label}}"
+                            class="form-control" {% if question.question.is_required %}required{% endif %} />
+                    </div>
+                    {% endif %}
+                    {% if type == "FileQuestion" %}
                     {{question.question.label}}
                     <label class="form-label"
                     for="{{question.question.label}}_id">{{question.question.label}}{% if question.question.is_required %}*{% endif %}</label>
