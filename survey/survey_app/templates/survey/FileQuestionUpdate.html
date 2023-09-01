@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="col mt-4">
-            <form action="{% url 'file_update' survey.slug image_question.id  %}" method="post">
+            <form action="{% url 'file_update' survey.slug file_question.id  %}" method="post">
                 {% csrf_token %}
                 {{file_question_form.as_p}}
                 <button type="submit" class="btn btn-primary">Update</button>

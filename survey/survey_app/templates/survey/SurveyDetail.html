@@ -101,6 +101,11 @@
                             <td><a href="{% url 'image_update' survey.slug question.question.id %}"
                                     class="btn btn-primary btn-sm">Edit Question</a></td>
                             {% endif %}
+                            {% if type == "FileQuestion" %}
+                            <td></td>
+                            <td><a href="{% url 'file_update' survey.slug question.question.id %}"
+                                    class="btn btn-primary btn-sm">Edit Question</a></td>
+                            {% endif %}
                             {% if type == "NumberQuestion" %}
                             <td>
                                 Min Input: {{question.question.min_value}}
