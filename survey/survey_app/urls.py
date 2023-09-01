@@ -4,6 +4,7 @@ from .views import *
 urlpatterns = [
     path('welcome/', SurveyListView.as_view(), name="survey_list"),
     path("create/", survey_create_view, name="survey_create"),
+    
     path("<slug:slug>/", include([
         path("", SurveyDetailView.as_view(), name="survey_detail"),
         path("update/", survey_update_view, name="survey_update"),
@@ -33,5 +34,10 @@ urlpatterns = [
         path("image/", include([
             path("", image_question_create, name="image_create"),
             path("<int:id>", image_question_update, name="image_update"),])),
+        
+        path("image/", include([
+            path("", file_question_create, name="file_create"),
+            ])),
+        
     ]))
 ]

@@ -546,5 +546,4 @@ def file_question_create(request, slug):
         "file_question_form": file_question_form
     }
 
-    return render(request, "survey/FileQuestionCreate.html", context)
-    
+    return render(request, "survey/FileQuestionCreate.html", context)    
