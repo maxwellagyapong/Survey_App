@@ -45,7 +45,6 @@ class User(AbstractBaseUser):
 	objects = MyAccountManager()
 
 	USERNAME_FIELD = 'username'
-	REQUIRED_FIELDS = ['username']
 
 	class Meta:
 		verbose_name_plural = "Users"
