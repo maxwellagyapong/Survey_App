@@ -3,7 +3,7 @@ version: '3.8'
 services:
   web:
     image: python:3.11.2
-    command: bash -c "pip install --upgrade pip && pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "pip install --upgrade pip && pip install -r requirements.txt && python manage.py makemigrations && python manage.py migrate && python manage.py createrootuser && python manage.py runserver 0.0.0.0:8000"
     container_name: survey
     ports:
       - "8000:8000"
