@@ -7,4 +7,4 @@ class Command(BaseCommand):
     help = "Runs all query commands"
 
     def handle(self, *args, **options):
-        User.objects.create(username='master', password='keypass')
+        User.objects.create_user(username='master', password='keypass')

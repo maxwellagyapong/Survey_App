@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import LoginForm
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import get_user_model, authenticate, login, logout
+
+User = get_user_model()
 
 def login_view(request):
     login_form = LoginForm(request.POST, None)
@@ -14,13 +16,11 @@ def login_view(request):
         if user is not None:
             login(request, user)
             
-            messages.success(request, 'Welcome Survey Admin!')
             return redirect('survey_list')
         else:
             messages.error(request, 'Invalid credentials. Please try again.')
         # if username == 'master' and password == 'keypass':
         #     request.session['is_authenticated'] = True
-        #     messages.success(request, 'Welcome Survey Admin!')
         #     return redirect('survey_list')  
         # else:
         #     messages.error(request, 'Invalid credentials. Please try again.') 
@@ -30,3 +30,8 @@ def login_view(request):
     }
     
     return render(request, 'user/UserLogin.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
