@@ -6,7 +6,7 @@ FROM python:3.11.2
 # to the terminal with out buffering it first
 ENV PYTHONUNBUFFERED 1
 
-# create root directory for our project in the container
+# create root directory for the project in the container
 RUN mkdir /survey
 
 # Set the working directory to /survey
