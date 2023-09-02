@@ -1,12 +1,13 @@
 from django.urls import path, include
 from .views import *
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('welcome/', SurveyListView.as_view(), name="survey_list"),
+    path('welcome/', login_required(SurveyListView.as_view()), name="survey_list"),
     path("create/", survey_create_view, name="survey_create"),
     
     path("<slug:slug>/", include([
-        path("", SurveyDetailView.as_view(), name="survey_detail"),
+        path("", login_required(SurveyDetailView.as_view()), name="survey_detail"),
         path("update/", survey_update_view, name="survey_update"),
         path("delete/", survey_delete_view, name="survey_delete"),
         path("result/", survey_result_view, name="survey_result"),

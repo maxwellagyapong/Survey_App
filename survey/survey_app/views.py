@@ -1,6 +1,5 @@
 import json
 from django.db import models
-from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.utils.translation import gettext as _
@@ -9,6 +8,7 @@ from .models import (Survey, SurveyQuestion, TextQuestion,
                     SingleSelectQuestion, SurveySubmission,)
 from .forms import *
 from django.views import generic
+from django.contrib.auth.decorators import login_required
 
 
 class SurveyListView(generic.ListView):
@@ -29,7 +29,7 @@ class SurveyDetailView(generic.DeleteView):
             
         return Survey.objects.get(slug=slug)
     
-    
+@login_required
 def survey_create_view(request):
     survey_form = SurveyForm(request.POST or None)
     if survey_form.is_valid():
@@ -44,7 +44,7 @@ def survey_create_view(request):
 
     return render(request, "survey/SurveyCreate.html", context)
     
-    
+@login_required      
 def survey_update_view(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -71,7 +71,7 @@ def survey_update_view(request, slug):
 
     return render(request, "survey/SurveyUpdate.html", context)
 
-
+@login_required  
 def survey_delete_view(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -87,7 +87,7 @@ def survey_delete_view(request, slug):
     messages.success(request, _("Survey has successfully deleted."))
     return redirect("survey_list")
 
-
+@login_required 
 def survey_result_view(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -155,7 +155,7 @@ def survey_form_submit_view(request, slug):
     messages.success(request, _("Thank you for your submission."))
     return redirect("survey_form", survey.slug)  # TODO
 
-
+@login_required  
 def text_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -182,7 +182,7 @@ def text_question_create(request, slug):
 
     return render(request, "survey/TextQuestionCreate.html", context)
 
-
+@login_required  
 def text_question_update(request, slug, id):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -224,7 +224,7 @@ def text_question_update(request, slug, id):
 
     return render(request, "survey/TextQuestionUpdate.html", context)
 
-
+@login_required  
 def number_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -251,7 +251,7 @@ def number_question_create(request, slug):
 
     return render(request, "survey/NumberQuestionCreate.html", context)
 
-
+@login_required  
 def number_question_update(request, slug, id):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -293,7 +293,7 @@ def number_question_update(request, slug, id):
 
     return render(request, "survey/NumberQuestionUpdate.html", context)
 
-
+@login_required  
 def single_select_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -321,7 +321,7 @@ def single_select_question_create(request, slug):
 
     return render(request, "survey/SingleSelectQuestionCreate.html", context)
 
-
+@login_required  
 def single_select_question_update(request, slug, id):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -363,7 +363,7 @@ def single_select_question_update(request, slug, id):
 
     return render(request, "survey/SingleSelectQuestionUpdate.html", context)
 
-
+@login_required  
 def single_select_option_create(request, slug, id):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -404,7 +404,7 @@ def single_select_option_create(request, slug, id):
 
     return render(request, "survey/SingleSelectOptionCreate.html", context)
 
-
+@login_required  
 def single_select_option_update(request, slug, id, option_id):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -456,7 +456,7 @@ def single_select_option_update(request, slug, id, option_id):
 
     return render(request, "survey/SingleSelectOptionUpdate.html", context)
 
-
+@login_required 
 def image_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -483,7 +483,7 @@ def image_question_create(request, slug):
 
     return render(request, "survey/ImageQuestionCreate.html", context)
 
-
+@login_required  
 def image_question_update(request, slug, id):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -525,7 +525,7 @@ def image_question_update(request, slug, id):
 
     return render(request, "survey/ImageQuestionUpdate.html", context)
 
-
+@login_required  
 def file_question_create(request, slug):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
@@ -552,7 +552,7 @@ def file_question_create(request, slug):
 
     return render(request, "survey/FileQuestionCreate.html", context)
 
-
+@login_required  
 def file_question_update(request, slug, id):
     try:
         survey: Survey | None = Survey.objects.filter(slug=slug).first()
