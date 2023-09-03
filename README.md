@@ -79,7 +79,6 @@ python manage.py test
 * /account/login/ - login to see SA dashboard
 * /account/logout/ - logout of SA dashboard
 
-## API Documentation
-```
-http://127.0.0.1:8000/api/doc 
+## Documentation
+``` 
 ```
