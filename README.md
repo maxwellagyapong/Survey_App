@@ -51,6 +51,11 @@ python manage.py makemigrations
 python manage.py migrate
 
 ```
+* To run automated tests
+```
+python manage.py test
+
+```
 
 ## App Endpoints
 * /survey/welcome/ - SA dashboard - returns a list of all surveys created by SA
