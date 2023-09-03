@@ -77,6 +77,7 @@ class SurveySubmission(models.Model):
     survey = models.ForeignKey(Survey, verbose_name=_("Survey"), 
                                on_delete=models.CASCADE, related_name="submissions")
     response = models.JSONField(_("Response"))
+    # file = models.JSONField(_("Files"))
     dt_submission = models.DateTimeField(_("Date/Time Submission"), auto_now_add=True)
     
     def __str__(self) -> str:
