@@ -77,8 +77,6 @@ class SurveySubmission(models.Model):
     survey = models.ForeignKey(Survey, verbose_name=_("Survey"), 
                                on_delete=models.CASCADE, related_name="submissions")
     response = models.JSONField(_("Response"))
-    image = models.ImageField(_("Image"), blank=True, null=True, upload_to="media/submitted-images/")
-    file = models.FileField(_("File"), blank=True, null=True, upload_to="media/submitted-files/")
     dt_submission = models.DateTimeField(_("Date/Time Submission"), auto_now_add=True)
     
     def __str__(self) -> str:

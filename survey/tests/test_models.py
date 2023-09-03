@@ -53,9 +53,7 @@ class ModelTestCase(TestCase):
         survey = Survey.objects.create(name='testsurvey')
         
         survey_submission = SurveySubmission.objects.create(survey=survey, 
-                                                        response={'answer': '10'},
-                                                        image='b',
-                                                        file='c')
+                                                        response={'answer': '10'})
         
         self.assertTrue(SurveySubmission.objects.filter(id=survey_submission.id).exists())
     

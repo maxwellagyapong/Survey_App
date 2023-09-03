@@ -140,20 +140,16 @@ def survey_form_submit_view(request, slug):
     if survey is None:
         messages.error(request, _(
             "Can't submit survey, this survey is no longer active."))
-        return redirect("/")  # TODO
+        return redirect("/")  # TODO: 
     response = json.dumps(request.POST.dict(), indent=4)
-    # image = request.FILES['question.question.label']
-    # file = request.FILES['question.question.label']
-    # print(response)
+    # image_and_file_response = json.dumps(request.FILES, indent=4)
     submission = SurveySubmission.objects.create(
         survey=survey,
         response=response,
-        # image = image,
-        # file = file,
     )
     submission.save()
     messages.success(request, _("Thank you for your submission."))
-    return redirect("survey_form", survey.slug)  # TODO
+    return redirect("survey_form", survey.slug)  # TODO: Redirect to another page
 
 @login_required  
 def text_question_create(request, slug):
