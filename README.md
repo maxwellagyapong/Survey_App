@@ -78,7 +78,3 @@ python manage.py test
 * survey/{survey_name}/single/{question_id}/{option}/{option_id} - update a single select option
 * /account/login/ - login to see SA dashboard
 * /account/logout/ - logout of SA dashboard
-
-## Documentation
-``` 
-```
