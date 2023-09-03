@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .models import User
+from user_app.models import User
 from django.urls import reverse
 
 class UserTestCase(TestCase):
