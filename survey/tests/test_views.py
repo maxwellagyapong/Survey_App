@@ -38,7 +38,7 @@ class TestViews(TestCase):
         }
         
         url = reverse("survey_create")
-        response = self.client.post(url, survey)
+        response = self.client.post(url, survey, follow=True)
         self.assertEqual(response.status_code, 200)
 
     def test_survey_update_view(self):
@@ -93,7 +93,7 @@ class TestViews(TestCase):
         }
         
         url = reverse('single_create', args=[survey.slug])
-        response = self.client.post(url, question)
+        response = self.client.post(url, question, follow=True)
         self.assertEqual(response.status_code, 200)
         
     def test_single_select_option_create_view(self):
@@ -114,7 +114,7 @@ class TestViews(TestCase):
         }
         
         url = reverse('option_create', args=[survey.slug, question.id])
-        response = self.client.post(url, option)
+        response = self.client.post(url, option, follow=True)
         self.assertEqual(response.status_code, 200)   
         
     def test_single_select_option_update_view(self):
@@ -158,5 +158,5 @@ class TestViews(TestCase):
         }
         
         url = reverse('survey_submit', args=[survey.slug])
-        response = self.client.post(url, submission)
+        response = self.client.post(url, submission, follow=True)
         self.assertEqual(response.status_code, 200)
