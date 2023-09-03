@@ -144,7 +144,7 @@ def survey_form_submit_view(request, slug):
     response = json.dumps(request.POST.dict(), indent=4)
     # image = request.FILES['question.question.label']
     # file = request.FILES['question.question.label']
-    print(response)
+    # print(response)
     submission = SurveySubmission.objects.create(
         survey=survey,
         response=response,
