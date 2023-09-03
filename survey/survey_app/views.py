@@ -16,7 +16,7 @@ class SurveyListView(generic.ListView):
     template_name = "survey/SurveyList.html"
     
     
-class SurveyDetailView(generic.DeleteView):
+class SurveyDetailView(generic.DetailView):
     template_name = "survey/SurveyDetail.html/"
     
     def get_object(self):
